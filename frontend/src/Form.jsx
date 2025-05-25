@@ -5,23 +5,57 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios"
 
 const Form = () => {
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    axios.post()
+    try {
+      const response = await axios.post("http://localhost:3001/signin", {
+        email,
+        password
+      })
 
+      if (response) {
+        localStorage.setItem("token", response.data.token)
+        navigate('/home');
+      }
+    }
+    catch (err) {
+      if (err.status == 404) {
+        alert("Invalid credentials.")
+      }
+      else {
+        alert("Bad request.")
+      }
+    }
 
-    navigate('/home');
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
-    // Add registration logic here
-    navigate('/home');
+    try {
+      const response = await axios.post("http://localhost:3001/signup", {
+        name,
+        email,
+        password
+      })
+      if (response) {
+        localStorage.setItem("token", response.data.token)
+        navigate('/home');
+      }
+    }
+    catch (err) {
+      if (err.status == 409) {
+        alert("User already exists")
+      }
+      else {
+        alert("Bad request.")
+      }
+    }
   };
 
   return (
@@ -36,17 +70,17 @@ const Form = () => {
               <div className="flip-card__front">
                 <div className="title">Log in</div>
                 <form onSubmit={handleLogin} className="flip-card__form">
-                  <input type="email" placeholder="Email" name="email" className="flip-card__input" onChange={(e)=> setEmail(e.target.value)}/>
-                  <input type="password" placeholder="Password" name="password" className="flip-card__input" onChange={(e)=> setPassword(e.target.value)}/>
+                  <input type="email" placeholder="Email" name="email" className="flip-card__input" onChange={(e) => setEmail(e.target.value)} />
+                  <input type="password" placeholder="Password" name="password" className="flip-card__input" onChange={(e) => setPassword(e.target.value)} />
                   <button type="submit" className="flip-card__btn">Let's go!</button>
                 </form>
               </div>
               <div className="flip-card__back">
                 <div className="title">Sign up</div>
                 <form onSubmit={handleSignUp} className="flip-card__form">
-                  <input type="text" placeholder="Name" className="flip-card__input" />
-                  <input type="email" placeholder="Email" name="email" className="flip-card__input" />
-                  <input type="password" placeholder="Password" name="password" className="flip-card__input" />
+                  <input type="text" placeholder="Name" className="flip-card__input" onChange={(e) => setName(e.target.value)} />
+                  <input type="email" placeholder="Email" name="email" className="flip-card__input" onChange={(e) => setEmail(e.target.value)} />
+                  <input type="password" placeholder="Password" name="password" className="flip-card__input" onChange={(e) => setPassword(e.target.value)} />
                   <button type="submit" className="flip-card__btn">Confirm!</button>
                 </form>
               </div>
