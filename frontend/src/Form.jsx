@@ -53,6 +53,14 @@ const Form = () => {
 };
 
 const StyledWrapper = styled.div`
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center; /* centers horizontally */
+  align-items: flex-start; /* aligns items at the top vertically */
+  background-color: #222;
+  padding-top: 200px; /* optional spacing from top */
+
   .wrapper {
     --input-focus: #2d8cf0;
     --font-color: #fefefe;
@@ -60,11 +68,7 @@ const StyledWrapper = styled.div`
     --bg-color: #111;
     --bg-color-alt: #7e7e7e;
     --main-color: #fefefe;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #222;
+    position: relative;
   }
 
   .switch {
