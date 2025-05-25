@@ -3,6 +3,6 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* full height of the viewport */
-  background-color: transparent;
+  height: 100vh;
+  background-color:black;
 }

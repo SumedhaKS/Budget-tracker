@@ -4,17 +4,33 @@ import styled from 'styled-components';
 const Expense = () => {
   return (
     <StyledWrapper>
-      <div className="card">
-        {/* <div className="banner">
-          <span className="banner-text">Save More</span>
-          <span className="banner-text">Stay Secure</span>
-        </div> */}
-        <span className="card__title">Your Personal Planner</span>
-        <p className="card__subtitle">Tell me how much you spent and I'll tell you how poor you are gonna become</p>
-        <form className="card__form">
-          <input placeholder="Your expense" />
-          <button className="expense">Add expense</button>
-        </form>
+      <div className="container">
+        <div className="card left-card">
+          <span className="card__title">Your Personal Planner</span>
+          <p className="card__subtitle">
+            Tell me how much you spent and I'll tell you how poor you are gonna become
+          </p>
+          <form className="card__form">
+            <input placeholder="What is your expense" />
+            <input placeholder="How much is your expense" />
+            <button className="expense">Add expense</button>
+          </form>
+        </div>
+
+        <div className="card center-card">
+          <h2>Budget Settings</h2>
+          <span className="card__titlee">Your Total expenses</span>
+        </div>
+
+
+        <div className="card right-card">
+            <span className="cardd__title">Set budget</span>
+            <form className="card__form">
+                <input placeholder="What is your budget" />
+                <button className="expense">Add budget</button>
+            </form>
+            
+        </div>
       </div>
     </StyledWrapper>
   );
@@ -26,68 +42,50 @@ const StyledWrapper = styled.div`
   background-color: black;
 
   display: flex;
-  align-items: center;   /* Vertical center */
-  justify-content: flex-start;  /* Align to left */
+  align-items: center;
+  justify-content: center; /* center container horizontally and vertically */
 
-  padding-left: 5%;  /* Optional spacing from left */
+  .container {
+    display: flex;
+    width: 90vw;
+    height: 90vh;
+    gap: 40px; /* space between the two cards */
+  }
 
   .card {
-    width: 320px;
-    padding: 30px;
     background: #fff;
     border: 8px solid #000;
     box-shadow: 15px 15px 0 #000;
+    padding: 30px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
-    /* Removed transform: rotate(-2deg); */
   }
 
-  .card:hover {
-    transform: scale(1.02);
-    box-shadow: 20px 20px 0 #000;
+  .left-card {
+    width: 320px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
 
-  .banner {
-    position: absolute;
-    top: 2px;
-    right: -95px;
-    background: #000;
-    color: #fff;
-    padding: 15px;
-    width: 350px;
-    text-align: center;
-    transform: rotate(45deg);
-    font-weight: bold;
-    font-size: 18px;
-    letter-spacing: 2px;
-    overflow: hidden;
-    transition: background 0.5s ease;
+  .center-card {
+    width: 800px;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  .banner-text {
-    display: inline-block;
-    transition: opacity 0.5s ease, transform 0.5s ease;
-    width: 100%;
-    position: absolute;
-    left: 13%;
-    top: 50%;
-    transform: translateY(-50%);
+
+  .right-card {
+    width: 320px;
+    height: 95%; 
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
   }
-  .banner:hover .banner-text:first-child {
-    opacity: 0;
-    transform: translateY(-100%);
-  }
-  .banner:hover .banner-text:last-child {
-    opacity: 1;
-    transform: translateY(-40%);
-  }
-  .banner-text:last-child {
-    opacity: 0;
-    transform: translateY(60%);
-  }
-  .banner:hover {
-    background: red;
-  }
+
   .card__title {
     font-size: 24px;
     font-weight: 700;
@@ -96,8 +94,31 @@ const StyledWrapper = styled.div`
     margin-bottom: 10px;
     display: block;
     border-bottom: 2px solid #000;
-    width: 50%; /* or any other percentage or pixel value */
+    width: 50%;
   }
+
+    .card__titlee {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 700px;
+    display: block;
+    border-bottom: 2px solid #000;
+    width: 50%;
+  }
+
+    .cardd__title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 700px;
+    display: block;
+    border-bottom: 2px solid #000;
+    width: 50%;
+  }
+
   .card__subtitle {
     font-size: 16px;
     line-height: 1.4;
@@ -105,24 +126,33 @@ const StyledWrapper = styled.div`
     margin-bottom: 20px;
     padding-bottom: 10px;
   }
+
   .card__form {
     display: flex;
     flex-direction: column;
     gap: 20px;
   }
+
+  .card__formm {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    }
+
   .card__form input {
     padding: 12px;
     border: 4px solid #000;
     font-size: 16px;
-    font-family: "Proxima Nova", sans-serif;
-    transition: all 0.3s ease;
     background-color: #fff;
+    transition: all 0.3s ease;
   }
+
   .card__form input:focus {
     outline: none;
     transform: scale(1.05);
   }
-  .sign-up {
+
+  .expense {
     border: 4px solid #000;
     background: #000;
     color: #fff;
@@ -133,17 +163,20 @@ const StyledWrapper = styled.div`
     cursor: pointer;
     transition: all 0.3s ease;
   }
-  .sign-up:hover {
+
+  .expense:hover {
     background: #fff;
     color: #000;
     transform: translateY(-5px);
     box-shadow: 0 5px 0 #000;
   }
-  .sign-up:active {
+
+  .expense:active {
     animation: shake 0.5s ease-in-out;
     transform: translateY(0);
     box-shadow: none;
   }
+
   @keyframes shake {
     0% {
       transform: translateX(0);
@@ -160,6 +193,7 @@ const StyledWrapper = styled.div`
     100% {
       transform: translateX(0);
     }
-  }`;
+  }
+`;
 
 export default Expense;

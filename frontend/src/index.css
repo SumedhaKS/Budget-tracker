@@ -1,7 +1,7 @@
 html, body, #root {
   height: 100%;
   margin: 0;
-  background-color: transparent;
-  color: white; /* to make text visible */
-  font-family: sans-serif; /* optional */
+  background-color: black;
+  color: white; 
+  font-family: sans-serif; 
 }

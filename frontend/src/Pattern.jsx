@@ -2,7 +2,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Pattern = ({ children }) => {
+const Pattern = () => {
   return (
     <StyledWrapper>
       <div className="background" />
