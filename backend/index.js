@@ -1,15 +1,15 @@
 const express = require("express");
 const app = express();
-const zod = require('zod');
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt')
 const cors = require('cors');
 const { User } = require("./db");
-
+const { zod } = require("./config")
+const { jwt, jwtSecret } = require("./config")
 const PORT = 3001;
-const jwtSecret = 'ushhh';
-// add cors 
+const { userMiddleware } = require("./middleware/index")
 
+// add cors 
+app.use(cors())
 app.use(express.json())
 
 const UserSchema = zod.object({
@@ -97,12 +97,13 @@ app.post('/signin', async (req, res) => {
 }
 })
 
-app.get('/budget', (req, res) => {
+app.get('/budget', userMiddleware , (req, res) => {
 	
+
 })
 
-app.post('/budget', (req, res) => {
-
+app.post('/budget', userMiddleware, (req, res) => {
+	
 })
 
 app.get('/expenses', (req, res) => {
@@ -120,4 +121,3 @@ app.delete('/expense/:id', (req, res) => {
 app.listen(PORT, () => {
 	console.log(`Listening on port ${PORT}`);
 })
-
