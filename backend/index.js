@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 const bcrypt = require('bcrypt')
 const cors = require('cors');
-const { User } = require("./db");
+const { User, Budget, Expense } = require("./db");
 const { zod } = require("./config")
 const { jwt, jwtSecret } = require("./config")
 const PORT = 3001;
@@ -97,25 +97,119 @@ app.post('/signin', async (req, res) => {
 }
 })
 
-app.get('/budget', userMiddleware , (req, res) => {
-	
+app.get('/budget', userMiddleware , async (req, res) => {
+	const { month } = req.query;
+
+	try{
+		const user = await User.findOne({email: req.userEmail});
+		const budget = await Budget.findOne({userID: user._id, month})
+
+		if(!budget){
+			return res.status(404).json({
+				msg: "No budget found"
+			})
+		}
+		return res.json({budget});
+	}
+	catch(err){
+		console.log(err)
+		return res.status(500).json({msg: "Server error"})
+	}
 
 })
 
-app.post('/budget', userMiddleware, (req, res) => {
-	
+app.post('/budget', userMiddleware, async (req, res) => {
+	const {amount, month} = req.body;
+	if(!amount || !month){
+		return res.status(400).json({
+			msg: "Missing budget or amount"
+		})
+	}
+	try{
+		const user = await User.findOne({email: req.userEmail});
+		const existing = await Budget.findOne({userID: user._id, month})
+		if(existing){
+			existing.amount = amount;
+			await existing.save();
+			return res.json({msg: "Budget updated"})
+		}
+		await Budget.create({
+			amount, 
+			month,
+			userID: user._id
+		})
+		return res.status(201).json({
+			msg: "Budget set"
+		})
+	}
+	catch(err){
+		console.log(err)
+		return res.status(500).json({msg: "Server error"})
+	}
 })
 
-app.get('/expenses', (req, res) => {
+app.get('/expenses', userMiddleware, async  (req, res) => {
+	const { month } = req.query;
+	try{
+		const user = await User.findOne({email: req.userEmail}) 
+		const filter = {userID: user._id};
+		if(month){
+			filter.month = month;
+		}
+		const expenses = await Expense.find(filter);
+		return res.json(expenses)
+	}
+	catch(err){
+		console.log(err);
+		return res.status(500).json({msg : "Server error"})
+	}
 
 })
 
-app.post('/expenses', (req, res) => {
+app.post('/expenses', userMiddleware, async (req, res) => {
+	const {title, amount, category, date, month } = req.body;
+	if(!title || !amount || !month){
+		return res.status(400).json({
+			msg: "Missing fields"
+		})
+	}
+	try{
+		const user = await User.findOne({email: req.userEmail})
 
+		const expense = await Expense.create({
+			title,
+			amount,
+			category,
+			date: date? new Date(date) : new Date(),
+			month,
+			userID: user._id
+		})
+
+		return res.status(201).json({msg: "Expense added: "+ expense})
+	}
+	catch(err){
+		console.log(err)
+		return res.status(500).json({msg: "Server error"})
+	}
 })
 
-app.delete('/expense/:id', (req, res) => {
+app.delete('/expense/:id', async (req, res) => {
+	const expenseID = req.params.id;
 
+	try{
+		const user = await User.findOne({email: req.userEmail});
+		const expense = await Expense.findOne({_id: expenseID, userID: user._id})
+
+		if(!expense){
+			return res.status(404).json({msg: "Expense not found"})
+		}
+		await Expense.deleteOne({_id: expenseID});
+		return res.json({msg: "Expense deleted"})
+	}
+	catch(err){
+		console.log(err)
+		return res.status(500).json({msg: "Server Error"})
+	}
 })
 
 app.listen(PORT, () => {

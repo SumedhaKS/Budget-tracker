@@ -1,14 +1,20 @@
 // src/components/Form.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
+import axios from "axios"
 
 const Form = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
-    // Add authentication logic here
+    axios.post()
+
+
     navigate('/home');
   };
 
@@ -30,8 +36,8 @@ const Form = () => {
               <div className="flip-card__front">
                 <div className="title">Log in</div>
                 <form onSubmit={handleLogin} className="flip-card__form">
-                  <input type="email" placeholder="Email" name="email" className="flip-card__input" />
-                  <input type="password" placeholder="Password" name="password" className="flip-card__input" />
+                  <input type="email" placeholder="Email" name="email" className="flip-card__input" onChange={(e)=> setEmail(e.target.value)}/>
+                  <input type="password" placeholder="Password" name="password" className="flip-card__input" onChange={(e)=> setPassword(e.target.value)}/>
                   <button type="submit" className="flip-card__btn">Let's go!</button>
                 </form>
               </div>

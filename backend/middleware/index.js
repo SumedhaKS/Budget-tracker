@@ -10,7 +10,7 @@ const userMiddleware = async (req,res,next)=>{
     try{
         const verifyUser = jwt.verify(token, jwtSecret);
         if(verifyUser){
-            req.email = verifyUser;   // add the verified emailID to the request and sends further to teh actual handler
+            req.userEmail = verifyUser;   // add the verified emailID to the request and sends further to teh actual handler
             console.log(req.email);
             next()  
         }
