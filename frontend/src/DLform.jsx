@@ -6,29 +6,71 @@ const Expense = () => {
     <StyledWrapper>
       <div className="container">
         <div className="card left-card">
-          <span className="card__title">Your Personal Planner</span>
-          <p className="card__subtitle">
-            Tell me how much you spent and I'll tell you how poor you are gonna become
-          </p>
-          <form className="card__form">
-            <input placeholder="What is your expense" />
-            <input placeholder="How much is your expense" />
-            <button className="expense">Add expense</button>
-          </form>
-        </div>
+          <h2 className="card__title">Add Expense</h2>
+        <form className="card__form">
+            <input placeholder="Expense Title" />
+            <input type="number" placeholder="Amount" />
+            <select className="dropdown">
+                <option value="others">Others</option>
+                <option value="food">Food</option>
+                <option value="transport">Transport</option>
+                <option value="entertainment">Entertainment</option>
+                <option value="utilities">Utilities</option>
+                {/* <option value="others">Others</option> */}
+            </select>
+            <input type="number" placeholder="Date" min="1" max="31"/>
+
+            <select className="dropdown">
+                <option value="">Select Month</option>
+                <option value="january">January</option>
+                <option value="february">February</option>
+                <option value="march">March</option>
+                <option value="april">April</option>
+                <option value="may">May</option>
+                <option value="june">June</option>
+                <option value="july">July</option>
+                <option value="august">August</option>
+                <option value="september">September</option>
+                <option value="october">October</option>
+                <option value="november">November</option>
+                <option value="december">December</option>
+            </select>
+
+            <button className="expense">Add Expense</button>
+        </form></div>
+
 
         <div className="card center-card">
-          <h2>Budget Settings</h2>
+          {/* <h2>Budget Settings</h2> */}
           <span className="card__titlee">Your Total expenses</span>
         </div>
 
 
         <div className="card right-card">
-            <span className="cardd__title">Set budget</span>
             <form className="card__form">
+            <span className="card__title">Set your budget</span>
+                
                 <input placeholder="What is your budget" />
-                <button className="expense">Add budget</button>
-            </form>
+                
+                <select className="dropdown">
+                  <option value="">Select Month</option>
+                  <option value="january">January</option>
+                  <option value="february">February</option>
+                  <option value="march">March</option>
+                  <option value="april">April</option>
+                  <option value="may">May</option>
+                  <option value="june">June</option>
+                  <option value="july">July</option>
+                  <option value="august">August</option>
+                  <option value="september">September</option>
+                  <option value="october">October</option>
+                  <option value="november">November</option>
+                  <option value="december">December</option>
+                 </select>
+  
+  <button className="expense">Add budget</button>
+</form>
+
             
         </div>
       </div>
@@ -194,6 +236,20 @@ const StyledWrapper = styled.div`
       transform: translateX(0);
     }
   }
+    .dropdown {
+  padding: 12px;
+  border: 4px solid #000;
+  font-size: 16px;
+  background-color: #fff;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.dropdown:focus {
+  outline: none;
+  transform: scale(1.05);
+}
+
 `;
 
 export default Expense;

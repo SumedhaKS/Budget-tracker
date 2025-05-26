@@ -1,56 +1,26 @@
-// Pattern.jsx
 import React from 'react';
 import styled from 'styled-components';
 
 const Pattern = () => {
   return (
     <StyledWrapper>
-      <div className="background" />
-      <div className="content">{children}</div>
+      <div className="container" />
     </StyledWrapper>
   );
-};
+}
 
 const StyledWrapper = styled.div`
-  position: relative;
-  width: 100%;
-  height: 100vh;
-  overflow: hidden;
-
-  .background {
-    position: absolute;
-    top: 0;
-    left: 0;
+  .container {
     width: 100%;
     height: 100%;
-    z-index: 0;
-
-    --s: 200px;
-    --c1: #1d1d1d;
-    --c2: #4e4f51;
-    --c3: #3c3c3c;
-
-    background: repeating-conic-gradient(
-          from 30deg,
-          #0000 0 120deg,
-          var(--c3) 0 180deg
-        )
-        calc(0.5 * var(--s)) calc(0.5 * var(--s) * 0.577),
-      repeating-conic-gradient(
-        from 30deg,
-        var(--c1) 0 60deg,
-        var(--c2) 0 120deg,
-        var(--c3) 0 180deg
-      );
-    background-size: var(--s) calc(var(--s) * 0.577);
-  }
-
-  .content {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    height: 100%;
-  }
-`;
+    background-color: #111111;
+    background-image: linear-gradient(
+      32deg,
+      rgba(8, 8, 8, 0.74) 30px,
+      transparent
+    );
+    background-size: 60px 60px;
+    background-position: -5px -5px;
+  }`;
 
 export default Pattern;

@@ -1,14 +1,24 @@
-import React from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Form from './Form';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Form from './form';
+import Expense from './DLform';
+import './App.css';
+import Pattern from './Pattern';
+
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Form />} />
-      </Routes>
-    </BrowserRouter>
+    <div>
+      <Pattern />
+       <Router>
+        <Routes>
+          <Route path="/" element={<Form />} />
+          <Route path="/home" element={<Expense />} />
+        </Routes>
+      </Router>
+      <Pattern />
+    </div>
+
+
   );
 }
 
