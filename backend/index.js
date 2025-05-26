@@ -98,7 +98,7 @@ app.post('/signin', async (req, res) => {
 })
 
 app.get('/budget', userMiddleware , async (req, res) => {
-	const { month } = req.query;
+	const {month} = req.query;
 
 	try{
 		const user = await User.findOne({email: req.userEmail});
@@ -112,7 +112,7 @@ app.get('/budget', userMiddleware , async (req, res) => {
 		return res.json({budget});
 	}
 	catch(err){
-		console.log(err)
+		console.error(err)
 		return res.status(500).json({msg: "Server error"})
 	}
 
@@ -143,13 +143,13 @@ app.post('/budget', userMiddleware, async (req, res) => {
 		})
 	}
 	catch(err){
-		console.log(err)
+		console.error(err)
 		return res.status(500).json({msg: "Server error"})
 	}
 })
 
 app.get('/expenses', userMiddleware, async  (req, res) => {
-	const { month } = req.query;
+	const {month} = req.query;
 	try{
 		const user = await User.findOne({email: req.userEmail}) 
 		const filter = {userID: user._id};
@@ -160,7 +160,7 @@ app.get('/expenses', userMiddleware, async  (req, res) => {
 		return res.json(expenses)
 	}
 	catch(err){
-		console.log(err);
+		console.error(err);
 		return res.status(500).json({msg : "Server error"})
 	}
 
@@ -184,16 +184,18 @@ app.post('/expenses', userMiddleware, async (req, res) => {
 			month,
 			userID: user._id
 		})
+		console.log(expense)
 
-		return res.status(201).json({msg: "Expense added: "+ expense})
+		return res.status(201).json({ expense });
+
 	}
 	catch(err){
-		console.log(err)
+		console.error(err)
 		return res.status(500).json({msg: "Server error"})
 	}
 })
 
-app.delete('/expense/:id', async (req, res) => {
+app.delete('/expense/:id', userMiddleware, async (req, res) => {
 	const expenseID = req.params.id;
 
 	try{
@@ -207,7 +209,7 @@ app.delete('/expense/:id', async (req, res) => {
 		return res.json({msg: "Expense deleted"})
 	}
 	catch(err){
-		console.log(err)
+		console.error(err)
 		return res.status(500).json({msg: "Server Error"})
 	}
 })
