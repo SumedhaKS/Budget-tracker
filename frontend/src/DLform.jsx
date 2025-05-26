@@ -39,10 +39,19 @@ const Expense = () => {
             <button className="expense">Add Expense</button>
         </form></div>
 
+        <div className="card top-center-block">
+          <span className='balance'>Balance : </span>
+        </div>
+
 
         <div className="card center-card">
           {/* <h2>Budget Settings</h2> */}
           <span className="card__titlee">Your Total expenses</span>
+        </div>
+
+        <div className="card center-right">
+          {/* <h2>Budget Settings</h2> */}
+          <span className="card__titlee">Your budget</span>
         </div>
 
 
@@ -103,9 +112,17 @@ const StyledWrapper = styled.div`
     position: relative;
     overflow: hidden;
   }
+    
+  .top-center-block{
+    width: 750px;
+    height: 115px;
+    position: absolute;
+    margin-left: 21%;
+
+    }
 
   .left-card {
-    width: 320px;
+    width: 600px;
     height: 95%;
     display: flex;
     flex-direction: column;
@@ -113,15 +130,25 @@ const StyledWrapper = styled.div`
   }
 
   .center-card {
-    width: 800px;
-    height: 95%;
+    width: 600px;
+    height: 66%;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    margin-top: 200px;
+  }
+
+  .center-right {
+    width: 600px;
+    height: 66%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin-top: 200px;
   }
 
   .right-card {
-    width: 320px;
+    width: 600px;
     height: 95%; 
     display: flex;
     flex-direction: column;
@@ -218,6 +245,17 @@ const StyledWrapper = styled.div`
     transform: translateY(0);
     box-shadow: none;
   }
+
+  .balance{
+    font-size: 24px;
+    font-weight: 700;
+    color: #000;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    display: block;
+    border-bottom: 2px solid #000;
+    width: 50%;
+}
 
   @keyframes shake {
     0% {
